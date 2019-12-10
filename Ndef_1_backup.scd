@@ -49,9 +49,8 @@ Ndef(\lowThrob).play(~aBus.outA, addAction: \addToHead, vol: ~mainAmp * 2).fadeT
 ~lowThrobMax = 48.midicps;
 Ndef(\lowThrob, {
 	RLPF.ar(
-		SinOsc.kr({Rand(10,15)}!2).range(0.2,0.7)
-		* LFSaw.ar(Rand(~lowThrobMin,~lowThrobMax) * LFNoise1.kr(0.1).range(0.9, 1.1), mul: 0.5) ,
-		SinOsc.kr( { Rand(0.1,0.2) }!2 ).range(80,3000), 0.5
+		SinOsc.kr({Rand(10,15)}!2).range(0.2,0.7) * LFSaw.ar(Rand(~lowThrobMin,~lowThrobMax), mul: 0.5) ,
+		SinOsc.kr( { Rand(0.1,0.2) }!2 ).range(80,1000), 0.5
 	) * 0.2
 });
 )
@@ -113,10 +112,10 @@ Ndef(\noiseHits).fadeTime = 0;
 Ndef(\sineCluster).play(~aBus.outA, addAction: \addToHead, vol: ~mainAmp).fadeTime_(5);
 (
 Ndef(\sineCluster, {
-	var sig = LFSaw.ar( { [Rand(100,200), Rand(50,80)] * 1  }!4, mul: 0.2);
+	var sig = LFSaw.ar( { Rand(100,200) * 1  }!4, mul: 0.2);
 	sig = RLPF.ar(sig, SinOsc.kr( { Rand(0.1,0.2) }!4).range(100,2000), 0.5);
 	// sig = RLPF.ar(sig, SinOsc.kr( { Rand(0.1,0.2) }!4).range(100,2000), 0.5);
-	0.5 * Splay.ar(sig)
+	Splay.ar(sig)
 });
 )
 Ndef(\sineCluster).release;
@@ -130,7 +129,7 @@ Ndef(\sineClusterHigh, {
 	var sig = LFSaw.ar( { Rand(1200,1600)  }!4, mul: 0.2);
 	sig = RLPF.ar(sig, SinOsc.kr( { Rand(0.1,0.2) }!4).range(100,2000), 0.5);
 	// sig = RLPF.ar(sig, SinOsc.kr( { Rand(0.1,0.2) }!4).range(100,2000), 0.5);
-	0.5 * Splay.ar(sig)
+	Splay.ar(sig)
 })
 )
 Ndef(\sineClusterHigh).release;
